@@ -42,7 +42,7 @@ function App() {
       <Routes>
         <Route element={<NavbarMenu />}>
           <Route path={"/"} element={<Home />}/>
-          <Route path={"/details"} element={<Details />}/>
+          <Route path={"/details/:id"} element={<Details />}/>
           <Route path={"/create"} element={<Create />}/>
         </Route>
       </Routes>

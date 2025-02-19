@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { AppContext } from '../App'
+import _ from 'lodash'
 
 export default function Home() {
 
@@ -48,6 +49,18 @@ function calculationTotalPrice(list)
   }, [dataLoaded]);
 
   console.log("AppContext, ", appContext);
+
+  const renderStatusElement = (elt) => {
+    if(elt == "available") {
+      return (<span className='badge p-2  text-success-emphasis bg-success-subtle border border-success-subtle'>{elt}</span>)
+    }
+    else if(elt == "under construction") {
+      return (<span className='badge p-2  text-warning-emphasis bg-warning-subtle border border-warning-subtle'>{elt}</span>)
+    }
+    else {
+      return (<span className='badge p-2 text-danger-emphasis bg-danger-subtle border border-danger-subtle'>{elt}</span>)
+    }
+  }
 
   useLayoutEffect(() => {
     
@@ -103,22 +116,21 @@ function calculationTotalPrice(list)
               listeLogements.map((logement, index) => (
                 <tr key={index}>
                   <td>{logement.type}</td>
-                  <td>{logement.price}</td>
+                  <td>{_.replace(Number(logement.price).toLocaleString(), /,/g, ',')}</td>
                   <td>{logement.address}</td>
-                  <td>{logement.status}</td>
+                  <td>{renderStatusElement(logement.status)}</td>
                   <td>
                     <div className='d-flex align-items-center justify-content-center'>
-                      <button className='btn btn-primary mx-1 d-flex align-items-center'>
+                      <Link to={`/details/${logement.id}`} className='btn btn-primary mx-1 d-flex align-items-center'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={"20"}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                           <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
-                      </button>
+                      </Link>
                       <button className='btn btn-warning mx-1  d-flex align-items-center'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={"20"}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={"20"}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                      </svg>
                       </button>
                       <button className='btn btn-outline-danger mx-1  d-flex align-items-center'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={"20"}>
