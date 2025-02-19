@@ -83,7 +83,7 @@ export { AppContext };
 
 const NavbarMenu = () => (
   <>
-    <nav className="navbar bg-body-tertiary mb-2">
+    <nav className="navbar bg-transparent mb-2">
       <div className='container-fluid'>
         <div className="navbar-brand d-flex justify-content-center align-items-center w-100">
           <img src={realEstateLogo} alt="Logo" width="50" height="auto" 

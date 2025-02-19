@@ -1,6 +1,11 @@
 /* @import "tailwindcss"; */
 body {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Space Grotesk", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+}
+
+.min-h-100 {
+  min-height: 100% !important;
 }
 /* 
 :root {
