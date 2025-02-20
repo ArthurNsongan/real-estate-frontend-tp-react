@@ -7,6 +7,7 @@ import Logements from './components/logements'
 import LoginForm from './components/loginForm'
 import Home from './pages/Home'
 import Details from './pages/Details'
+import Update from './pages/Update'
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
 import Create from './pages/Create'
 import { createContext } from 'react'
@@ -43,6 +44,7 @@ function App() {
         <Route element={<NavbarMenu />}>
           <Route path={"/"} element={<Home />}/>
           <Route path={"/details/:id"} element={<Details />}/>
+          <Route path={"/update/:id"} element={<Update />}/>
           <Route path={"/create"} element={<Create />}/>
         </Route>
       </Routes>

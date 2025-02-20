@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { AppContext } from '../App'
 import _ from 'lodash'
+import { Modal, Toast } from '../components/bootstrap_components';
 
 export default function Home() {
 
@@ -16,6 +17,8 @@ function calculationTotalPrice(list)
   list.forEach(obj => sum += Number(obj.price));
   return sum;
 }
+
+const containerRef = useRef();
 
 //   var listeLogements = [
 //     {
@@ -42,6 +45,10 @@ function calculationTotalPrice(list)
 
   const [dataLoaded, setDataLoaded] = useState(false);
 
+  const [deletionId, setDeletionId] = useState(null);
+  const [hasDeleted, setHasDeleted] = useState(false);
+
+
   const totalPrice = useMemo(() => {
     let sum = calculationTotalPrice(listeLogements);
     console.log(sum, " <= totalPrice")
@@ -62,19 +69,40 @@ function calculationTotalPrice(list)
     }
   }
 
+  const handleDelete = (id) => {
+    axios.delete(`https://real-estate-api-64hf.onrender.com/api/properties/${id}`)
+    .then((res) => {
+      console.log(res.data, typeof res.data);
+      setDeletionId(null)
+      setDataLoaded(false);
+      setHasDeleted(true);
+      setTimeout(() => {
+        setHasDeleted(false);
+      }, 5000);
+    })
+    .catch((error) => {
+      console.log("error", error)
+    })
+    // setDeletionId(null)
+    // setHasDeleted(true);
+    // setTimeout(() => {
+    //   setHasDeleted(false);
+    // }, 5000);
+  } 
+
   useLayoutEffect(() => {
     
     if(!dataLoaded) {
       axios.get("https://real-estate-api-64hf.onrender.com/api/properties")
-    .then((res) => {
-      console.log(res.data, typeof res.data);
-      if(typeof res.data == "object" && res.data?.length > 0) {
-        setTimeout(() => {
-          setListeLogements(res.data);
-          setDataLoaded(true);
-        }, 2000);
-      }
-    });
+      .then((res) => {
+        console.log(res.data, typeof res.data);
+        if(typeof res.data == "object" && res.data?.length >= 0) {
+          setTimeout(() => {
+            setListeLogements(res.data);
+            setDataLoaded(true);
+          }, 2000);
+        }
+      });
     } 
 
   });
@@ -101,14 +129,14 @@ function calculationTotalPrice(list)
           </thead>
           <tbody>
             {
-              !dataLoaded ?
+              dataLoaded == false ?
               <>
                 <tr className='bg-danger'>
                   <td colSpan={5}>Chargement ...</td>
                 </tr>
               </> :
               <>
-              {listeLogements.length == 0 ? 
+              {(listeLogements.length == 0 && dataLoaded) ? 
                 <tr className='bg-danger'>
                   <td colSpan={5}>Aucune donnée chargée ...</td>
                 </tr>            
@@ -127,12 +155,19 @@ function calculationTotalPrice(list)
                           <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
                       </Link>
-                      <button className='btn btn-warning mx-1  d-flex align-items-center'>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={"20"}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                      </svg>
-                      </button>
-                      <button className='btn btn-outline-danger mx-1  d-flex align-items-center'>
+                      <Link to={`/update/${logement.id}`}>
+                        <button className='btn btn-warning mx-1  d-flex align-items-center'>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={"20"}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                          </svg>
+                        </button>
+                      </Link>
+                      <button onClick={() => {
+                        // if(confirm("Etes-vous sur de vouloir supprimer ?")) {
+                        //   alert("Supprimé avec succès !")
+                        // } 
+                        setDeletionId(logement.id)
+                      }} className='btn btn-outline-danger mx-1  d-flex align-items-center'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={"20"}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                         </svg>
@@ -146,6 +181,8 @@ function calculationTotalPrice(list)
           </tbody>
         </table>
       </div>
+      {deletionId > 0 ? <Modal closedMethod={() => { setDeletionId(null) }} actionMethod={() => { handleDelete(deletionId); }} shown={deletionId > 0} /> : <></>}
+      {hasDeleted ? <Toast>Elément supprimé avec succès</Toast> : <></>}
     </>
   );
 }

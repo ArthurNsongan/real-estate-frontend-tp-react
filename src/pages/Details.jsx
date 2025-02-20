@@ -27,7 +27,7 @@ export default function Details() {
         }).catch((error) => {
             console.log(error);
         });
-    }, [id])
+    }, [id]);
 
     const getLogementImageLink = (type) => {
         if(type === "house") {
