@@ -56,7 +56,11 @@ export default function Search() {
 
         });
 
-        axios.get("https://real-estate-api-64hf.onrender.com/api/properties/search", query).
+        axios.get("https://real-estate-api-64hf.onrender.com/api/properties/search", {
+            params: {
+                ...query
+            }
+        }).
         then((result) => {
             setSearchResults(result);
             setLoading(true);
