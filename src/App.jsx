@@ -93,8 +93,8 @@ const NavbarMenu = () => (
           <img src={realEstateLogo} alt="Logo" width="50" height="auto" 
             className="d-inline-block align-text-top"/>
           <span className='text-bold'>RealEstate</span>
-          <Link to={"/"}>Home</Link>
-          <Link to={"/search"}>Search</Link>
+          <Link className='btn px-2' style={{fontSize: "12px"}} to={"/"}>Home</Link>
+          <Link className='btn px-2' style={{fontSize: "12px"}} to={"/search"}>Search</Link>
         </div>
       </div>
     </nav>
