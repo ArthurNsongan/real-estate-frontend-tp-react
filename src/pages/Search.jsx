@@ -6,8 +6,7 @@ export default function Search() {
     const [searchResults, setSearchResults] = useState([])
 
     const handleChange = (event) => {
-        var fieldName = event.target.name;
-
+        setSearchField({...searchField, [event.target.name]: event.target.value});
     }
 
     const [loading, setLoading] = useState(false)
