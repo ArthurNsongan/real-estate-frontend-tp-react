@@ -4,7 +4,7 @@
 import realEstateLogo from './assets/real_estate_logo.png'
 import './App.css'
 import Logements from './components/logements'
-import LoginForm from './components/loginForm'
+import LoginForm from './components/LoginForm'
 import Home from './pages/Home'
 import Details from './pages/Details'
 import Update from './pages/Update'
