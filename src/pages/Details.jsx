@@ -60,37 +60,37 @@ export default function Details() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                         </svg>
                         {logementData?.address}</p>
-                    <div className='row'>
-                        <div className='col-lg-3'>
-                            <h2 className='text-left'>{logementData ? logementData.bedrooms 
-                                : <div className="spinner-border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                              </div>}</h2>
-                            <p className='text-left fs-6'>chambres</p>
+                        <div className='row'>
+                            <div className='col-lg-3'>
+                                <h2 className='text-left'>{logementData ? logementData.bedrooms 
+                                    : <div className="spinner-border" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>}</h2>
+                                <p className='text-left fs-6'>chambres</p>
+                            </div>
+                            <div className='col-lg-3'>
+                                <h2 className='text-left'>{logementData ? logementData.kitchens 
+                                    : <div className="spinner-grow" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>}</h2>
+                                <p className='text-left fs-6'>cuisines</p>
+                            </div>
+                            <div className='col-lg-3'>
+                                <h2 className='text-left'>{
+                                    logementData ? logementData.living_rooms 
+                                    : <div className="spinner-grow" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div> }</h2>
+                                <p className='text-left'>salons</p>
+                            </div>
+                            <div className='col-lg-3'>
+                                <h2 className='text-left'>{logementData ? logementData.toilets 
+                                    : <div className="spinner-grow" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>}</h2>
+                                <span className='text-left'>douches</span>
+                            </div>
                         </div>
-                        <div className='col-lg-3'>
-                            <h2 className='text-left'>{logementData ? logementData.kitchens 
-                                : <div className="spinner-grow" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                              </div>}</h2>
-                            <p className='text-left fs-6'>cuisines</p>
-                        </div>
-                        <div className='col-lg-3'>
-                            <h2 className='text-left'>{
-                                logementData ? logementData.living_rooms 
-                                : <div className="spinner-grow" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                              </div> }</h2>
-                            <p className='text-left'>salons</p>
-                        </div>
-                        <div className='col-lg-3'>
-                            <h2 className='text-left'>{logementData ? logementData.toilets 
-                                : <div className="spinner-grow" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                              </div>}</h2>
-                            <span className='text-left'>douches</span>
-                        </div>
-                    </div>
                     <h3 className='py-4'>{logementData ? 
                         <>{Number(logementData?.price).toLocaleString()} FCFA</> : 
                         <div className="spinner-border" role="status">
