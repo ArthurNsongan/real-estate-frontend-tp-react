@@ -50,7 +50,7 @@ export default function Search() {
                     <div className='col-lg-2'>
                         <label className="form-label">Statut</label>
                         <select onChange={handleChange} className='form-select' value={searchField.status} name='status'>
-                            <option value={""}>Tous les statuts</option>
+                            <option value={""}>Tous</option>
                             <option value={"available"}>Disponible</option>
                             <option value={"under construction"}>En Travaux</option>
                             <option value={"occupied"}>Occupé</option>
@@ -61,9 +61,9 @@ export default function Search() {
                     </div>
                 </div>
             </div>
-            <div className='container py-5 rounded-4 bg-light shadow-sm'>
+            <div className='container py-5 my-3 rounded-4 bg-light shadow-sm'>
                 {
-                    loading ?
+                    !loading ?
                         <>
                             <div class="d-flex justify-content-center align-items-center">
                                 <div className="spinner-grow" role="status">
