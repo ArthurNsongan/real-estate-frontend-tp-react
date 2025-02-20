@@ -59,6 +59,8 @@ export default function Search() {
         then((result) => {
             setSearchResults(result);
             setLoading(true);
+        }).catch((error) => {
+            console.log(error);
         });
 
     }
@@ -91,7 +93,7 @@ export default function Search() {
                     <div className='col-lg-2'>
                         <label className="form-label">Type</label>
                         <select type='text' className='form-select' value={searchField.type} onChange={handleChange} name='type'>
-                            <option value={"appartment"}>Apaprtement</option>
+                            <option value={"appartment"}>Appartement</option>
                             <option value={"house"}>House</option>
                             <option value={"villa"}>Villa</option>
                         </select>
@@ -114,7 +116,7 @@ export default function Search() {
                         </select>                
                     </div>
                     <div className='col-lg-4'>
-                        <button onClick={() => getSearchResults()} className='btn btn-info w-100'>Search</button>
+                        <button onClick={getSearchResults} className='btn btn-info w-100'>Search</button>
                     </div>
                 </div>
             </div>
