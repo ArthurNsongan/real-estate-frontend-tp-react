@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 export default function Create() {
@@ -35,6 +35,7 @@ export default function Create() {
     .then((res) => {
       console.log(res);
       alert("Enregistré avec succès")
+      window.location.href = "/";
     })
     .catch((res) => {
       console.log(res);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 
 export default function Create() {
@@ -16,16 +16,16 @@ export default function Create() {
     });
   }, [id]);
 
-  let emptyFormData = {
-    "type": "",
-    "bedrooms": 0,
-    "kitchens": 0,
-    "living_rooms": 0,
-    "toilets": 0,
-    "price": 0,
-    "address": "",
-    "status": ""
-  }
+  // let emptyFormData = {
+  //   "type": "",
+  //   "bedrooms": 0,
+  //   "kitchens": 0,
+  //   "living_rooms": 0,
+  //   "toilets": 0,
+  //   "price": 0,
+  //   "address": "",
+  //   "status": ""
+  // }
 
   const [formData, setFormData] = useState(null);
 
@@ -43,6 +43,7 @@ export default function Create() {
     .then((res) => {
       console.log(res);
       alert("Modifié avec succès")
+      window.location.href = "/";
     })
     .catch((res) => {
       console.log(res);

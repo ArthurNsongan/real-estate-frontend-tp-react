@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { AppContext } from '../App'
 import _ from 'lodash'
@@ -53,7 +53,7 @@ const containerRef = useRef();
     let sum = calculationTotalPrice(listeLogements);
     console.log(sum, " <= totalPrice")
     return sum;
-  }, [dataLoaded]);
+  }, [listeLogements]);
 
   console.log("AppContext, ", appContext);
 
@@ -90,7 +90,7 @@ const containerRef = useRef();
     // }, 5000);
   } 
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     
     if(!dataLoaded) {
       axios.get("https://real-estate-api-64hf.onrender.com/api/properties")
@@ -114,10 +114,10 @@ const containerRef = useRef();
           <Link to={"/create"}><button className='btn btn-primary'>+ Nouveau logement</button></Link>
           <div className=''>
             <span>Total : </span><br/>
-            <div className='badge text-start text-success-emphasis bg-success-subtle border border-success-subtle rounded-2'><b>{totalPrice}</b> XAF</div>
+            <div className='badge text-start text-success-emphasis bg-success-subtle border border-success-subtle rounded-2'><b>{totalPrice.toLocaleString()}</b> XAF</div>
           </div>
         </div> 
-        <div className='row my-5  overflow-scroll'>
+        <div className='row my-5  overflow-auto'>
           <table className='table table-striped text-center align-middle table-hover rounded'>
             <thead>
               <tr className=''>
@@ -184,7 +184,7 @@ const containerRef = useRef();
         </div>
       </div>
       {deletionId > 0 ? <Modal closedMethod={() => { setDeletionId(null) }} actionMethod={() => { handleDelete(deletionId); }} shown={deletionId > 0} /> : <></>}
-      {hasDeleted ? <Toast>Elément supprimé avec succès</Toast> : <></>}
+      {hasDeleted ? <Toast ref={containerRef}>Elément supprimé avec succès</Toast> : <></>}
     </>
   );
 }
