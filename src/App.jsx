@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route, Outlet, Link } from 'react-router-dom'
 import Create from './pages/Create'
 import { createContext } from 'react'
 import Search from './pages/Search'
+import { Analytics } from '@vercel/analytics/react'
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    <Analytics />
     </AppContext.Provider>
   )
 }
